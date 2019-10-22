@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+astral = "*"
+responder = "*"
+flask = "*"
+flask-compress = "*"
+flask-cors = "*"
+python-dateutil = "*"
+timezonefinderl = "*"
+
+[dev-packages]
+pylint = "*"
+black = "==18.9b0"
+ipython = "*"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
