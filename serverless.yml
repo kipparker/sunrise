@@ -1,20 +1,17 @@
-service: serverless-flask
+service: sunmap-endpoints
 
 plugins:
   - serverless-python-requirements
-  - serverless-wsgi
-
-custom:
-  wsgi:
-    app: server.app
-    packRequirements: false
-  pythonRequirements:
-    dockerizePip: true
-
+  - serverless-offline
+  
 package:
   exclude:
     - node_modules/**
-    - venv/**
+    - .env
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
 
 provider:
   name: aws
@@ -24,8 +21,11 @@ provider:
   profile: serverless-deployments
 
 functions:
-  app:
-    handler: wsgi_handler.handler
+  list:
+    handler: handler.api
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http:
+          path: /api/v1/{lat}/{lng}
+          method: get
+          cors: true
+

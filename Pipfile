@@ -16,6 +16,7 @@ timezonefinderl = "*"
 pylint = "*"
 black = "==18.9b0"
 ipython = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.7"
