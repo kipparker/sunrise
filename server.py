@@ -10,7 +10,7 @@ import datetime
 import json
 
 from astral import Astral, Location
-from timezonefinderL import TimezoneFinder 
+from timezonefinderL import TimezoneFinder
 
 from api_exceptions import BadRequest
 from factory import create_app
@@ -31,14 +31,21 @@ def date_or_now(request, name, default_date=None):
 def api(lat: str, lng: str):
     latitude, longitude = float(lat), float(lng)
     timezone = TimezoneFinder().timezone_at(lng=longitude, lat=latitude)
-    l = Location(("name", "region",latitude, longitude, "Europe/London", 0))
+    l = Location(("name", "region", latitude, longitude, "Europe/London", 0))
     from_date = date_or_now(request, "fromDate")
     to_date = date_or_now(request, "toDate", from_date)
     days = []
     for d in rrule(freq=DAILY, count=(to_date - from_date).days + 1, dtstart=from_date):
         days.append({"date": d.date(), "times": l.sun(d, local=True)})
     return jsonify(
-        {"data": {"timezone": timezone, "days": days, "longitude":longitude, "latitude": latitude}}
+        {
+            "data": {
+                "timezone": timezone,
+                "days": days,
+                "longitude": longitude,
+                "latitude": latitude,
+            }
+        }
     )
 
 
