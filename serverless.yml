@@ -1,5 +1,5 @@
-org: kipxx
-app: sunmap-endpoints-app
+org: kip
+# app: sunmap-endpoints-app
 service: sunmap-endpoints
 
 plugins:
@@ -27,6 +27,8 @@ provider:
   stage: dev
   region: eu-west-2
   profile: serverless-deployments
+  apiKeys:
+    - api_${self:provider.stage}
 
 
 functions:

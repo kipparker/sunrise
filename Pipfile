@@ -5,10 +5,6 @@ name = "pypi"
 
 [packages]
 astral = "*"
-responder = "*"
-flask = "*"
-flask-compress = "*"
-flask-cors = "*"
 python-dateutil = "*"
 timezonefinderl = "*"
 
