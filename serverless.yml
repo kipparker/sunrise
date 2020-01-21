@@ -39,6 +39,7 @@ functions:
           path: /api/v1/{lat}/{lng}
           method: get
           cors: true
+          private: true
   root:
     handler: handler.root
     events:
@@ -46,6 +47,7 @@ functions:
           path: /
           method: get
           cors: true
+          private: true
   info:
     handler: handler.info
     events:
@@ -53,5 +55,6 @@ functions:
           path: /api/v1
           method: get
           cors: true
+          private: true
 
 
