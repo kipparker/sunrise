@@ -1,20 +1,25 @@
-service: serverless-flask
+org: kip
+# app: sunmap-endpoints-app
+service: sunmap-endpoints
 
 plugins:
   - serverless-python-requirements
-  - serverless-wsgi
+  - serverless-offline
+  - serverless-domain-manager
 
 custom:
-  wsgi:
-    app: server.app
-    packRequirements: false
   pythonRequirements:
-    dockerizePip: true
+    dockerizePip: non-linux
+  customDomain:
+    domainName: sunrise.fifthcontinent.io
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
 
 package:
   exclude:
     - node_modules/**
-    - venv/**
+    - .env
 
 provider:
   name: aws
@@ -22,10 +27,31 @@ provider:
   stage: dev
   region: eu-west-2
   profile: serverless-deployments
+  apiKeys:
+    - api_${self:provider.stage}
+
 
 functions:
-  app:
-    handler: wsgi_handler.handler
+  sunrise:
+    handler: handler.api
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http:
+          path: /api/v1/{lat}/{lng}
+          method: get
+          cors: true
+  root:
+    handler: handler.root
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+  info:
+    handler: handler.info
+    events:
+      - http:
+          path: /api/v1
+          method: get
+          cors: true
+
+
