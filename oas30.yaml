@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Sunrise API
   description: Retrieve sunset and sunrise times for any location and date
-  version: 0.1.9
+  version: 1.0.0
 servers:
   - url: "https://sunrise.fifthcontinent.io"
 paths:
