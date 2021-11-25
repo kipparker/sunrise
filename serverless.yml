@@ -13,6 +13,7 @@ custom:
   customDomain:
     domainName: sunrise.fifthcontinent.io
     basePath: ''
+    region: eu-west-2
     stage: ${self:provider.stage}
     createRoute53Record: true
 
@@ -27,19 +28,18 @@ provider:
   stage: dev
   region: eu-west-2
   profile: serverless-deployments
-  apiKeys:
-    - api_${self:provider.stage}
 
 
 functions:
   sunrise:
     handler: handler.api
+    timeout: 15
     events:
       - http:
-          path: /api/v1/{lat}/{lng}
+          path: /api/v1/{latitude}/{longitude}
           method: get
           cors: true
-          private: true
+          
   root:
     handler: handler.root
     events:
@@ -47,7 +47,6 @@ functions:
           path: /
           method: get
           cors: true
-          private: true
   info:
     handler: handler.info
     events:
@@ -55,6 +54,3 @@ functions:
           path: /api/v1
           method: get
           cors: true
-          private: true
-
-

@@ -1,43 +1,33 @@
 # Sunrise
 
-Implements a simple API for astral.
+Implements a simple API that uses the python library [Astral](https://astral.readthedocs.io/en/latest/) to retrieve sunset and sunrise times for any location and date. This repo also includes a serverless framework file for deployment to AWS API gateway
 
-## Deploy to AWS Lambda endpoint
+[API documentation](oas30.yaml)
+
+## Special cases
+
+In the special cases where there is no sunrise or sunset, this API will still give a response. In the case of permanent darkness sunrise and sunset will both be at midday. In the case of permanent daylight sunrise will bet at 00:00 and sunset at 23:59:59.999999
+
+## Running tests
 
 ```bash
-sls deploy
+pip install --dev
+pipenv run pytest
 ```
 
-## Create the domain name
+## Deployment
+### Create the domain name
 
 
 ```bash
 sls create_domain
 ```
-
-## API Keys
-
-To see the current API key
+### Deploy to AWS Lambda endpoint
 
 ```bash
-sls info
+sls deploy
 ```
 
-The key `api_dev` will be listed under api_keys.
 
-To make a request with python request library:
-
-```
-import requests
-
-headers = {
-    "x-api-key": "KrdJFKaodifhoae76asdfkj987dfliIdaffiD"
-}
-
-my_profile = requests.get(
-    "https://your-api/dev", headers=headers)
-
-print(my_profile.content)
-```
 
 
