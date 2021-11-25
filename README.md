@@ -2,7 +2,7 @@
 
 Implements a simple API that uses the python library [Astral](https://astral.readthedocs.io/en/latest/) to retrieve sunset and sunrise times for any location and date. This repo also includes a serverless framework file for deployment to AWS API gateway
 
-[API documentation](oas30.yaml)
+[API documentation](https://kipparker.github.io/sunrise/)
 
 ## Special cases
 
