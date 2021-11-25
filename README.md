@@ -4,9 +4,9 @@ Implements a simple API that uses the python library [Astral](https://astral.rea
 
 [API documentation](oas30.yaml)
 
-## Special cases
+## Special cases
 
-In the special cases where there is no sunrise or sunset, this API will still give a response. In the case of permanent darkness sunrise and sunset will both be at midday. In the case of permanent daylight sunrise will bet at 00:00 and sunset at 23:59:59.999999
+In the special cases where there is no sunrise or sunset, this API will still give a response. In the case of permanent darkness sunrise and sunset will both be at midday. In the case of permanent daylight sunrise will be at 00:00 and sunset at 23:59:59.999999
 
 ## Running tests
 
