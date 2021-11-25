@@ -15,6 +15,7 @@ ipython = "*"
 mypy = "*"
 requests = "*"
 pytest = "*"
+types-python-dateutil = "*"
 
 [requires]
 python_version = "3.7"
