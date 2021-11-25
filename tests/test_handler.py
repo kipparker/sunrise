@@ -4,9 +4,7 @@ import json
 from handler import api
 
 MARSH = {"latitude": 50.952339, "longitude": 0.907290}
-FARNORTH = {"latitude": 69.778952, "longitude": 23.988174}
-
-
+FARNORTH = {"latitude": 79.83235355581377, "longitude": 24.301034142760848}
 def test_api():
     result = api(
         {
@@ -33,6 +31,7 @@ def test_api_always_dark():
         {},
     )
     body = json.loads(result["body"])
+    print(body)
     assert (
         body["data"]["days"][0]["times"]["sunrise"]
         == body["data"]["days"][0]["times"]["sunset"]

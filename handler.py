@@ -5,7 +5,8 @@ from dateutil.parser import parse
 from dateutil.rrule import rrule, DAILY
 import astral
 
-from astral import Location
+from astral import LocationInfo
+from astral import sun
 from timezonefinderL import TimezoneFinder
 
 from encoders import DateEncoder
@@ -59,16 +60,15 @@ def api(event: Dict, context: Dict):
             },
             500,
         )
-    location = Location(("name", "region", latitude, longitude, timezone, 0))
+    city = LocationInfo("name", "region", timezone, latitude, longitude)
     from_date = date_or_now(event, "fromDate")
     to_date = date_or_now(event, "toDate")
     days = []
     for d in rrule(freq=DAILY, count=(to_date - from_date).days + 1, dtstart=from_date):
         try:
-            times = location.sun(d, local=True)
-        except astral.AstralError as e:
-            if "6" in e.args[0]:
-                # we say sunrise/sunset is 00:00/23:59:59.99999
+            sunrise = sun.sunrise(city.observer, d, city.timezone)
+        except ValueError as e:
+            if 'above' in e.args[0]:
                 sunrise = d.replace(hour=0, minute=0, second=0, microsecond=0)
                 sunset = d.replace(
                     hour=23, minute=59, second=59, microsecond=10 ** 6 - 1
@@ -76,11 +76,9 @@ def api(event: Dict, context: Dict):
             else:
                 sunrise = d.replace(hour=12, minute=0, second=0, microsecond=0)
                 sunset = d.replace(hour=12, minute=0, second=0, microsecond=0)
-                # we say sunrise/sunset is 12:00/12:00
-            times = {"sunrise": sunrise, "sunset": sunset}
-        times.pop("dusk", None)
-        times.pop("dawn", None)
-        times.pop("noon", None)
+        else:
+            sunset = sun.sunset(city.observer, d, city.timezone)
+        times = {"sunrise": sunrise, "sunset": sunset}
         days.append({"date": d.date().isoformat(), "times": times})
     return response(
         {
@@ -101,4 +99,14 @@ if __name__ == "__main__":
     equator = {"latitude": 23.563987, "longitude": 121.611908}
 
     loc = equator
-    print(api({"pathParameters": {"latitude": loc["latitude"], "longitude": loc["longitude"]}}, {})["body"])
+    print(
+        api(
+            {
+                "pathParameters": {
+                    "latitude": loc["latitude"],
+                    "longitude": loc["longitude"],
+                }
+            },
+            {},
+        )["body"]
+    )

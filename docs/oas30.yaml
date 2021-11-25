@@ -52,6 +52,12 @@ paths:
                             date:
                               type: string
                               example: "2021-11-25"
+                            longitude:
+                              type: number
+                              example: 121.611908
+                            latitude:
+                              type: number
+                              example: 23.563987
                             times:
                               type: array
                               items:
