@@ -38,35 +38,30 @@ paths:
               schema:
                 type: object
                 properties:
-                  data:
-                    type: object
-                    properties:
-                      timezone:
-                        type: string
-                        example: "Europe/London"
-                      days:
-                        type: array
-                        items:
+                  timezone:
+                    type: string
+                    example: "Europe/London"
+                  longitude:
+                    type: number
+                    example: 121.611908
+                  latitude:
+                    type: number
+                    example: 23.563987
+                  days:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          example: "2021-11-25"
+                        times:
                           type: object
                           properties:
-                            date:
+                            sunrise:
                               type: string
-                              example: "2021-11-25"
-                            longitude:
-                              type: number
-                              example: 121.611908
-                            latitude:
-                              type: number
-                              example: 23.563987
-                            times:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  sunrise:
-                                    type: string
-                                    example: "2021-11-25T07:34:03+00:00"
-                                  sunset:
-                                    type: string
-                                    example: "2021-11-25T07:34:03+00:00"
+                              example: "2021-11-25T07:34:03+00:00"
+                            sunset:
+                              type: string
+                              example: "2021-11-25T07:34:03+00:00"
                    

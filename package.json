@@ -6,5 +6,8 @@
     "serverless": "^2.66.2",
     "serverless-python-requirements": "^5.0.1",
     "serverless-domain-manager": "^5.2.0"
+  },
+  "dependencies": {
+    "ws": "^8.3.0"
   }
 }

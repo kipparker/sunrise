@@ -82,12 +82,10 @@ def api(event: Dict, context: Dict):
         days.append({"date": d.date().isoformat(), "times": times})
     return response(
         {
-            "data": {
-                "timezone": timezone,
-                "days": days,
-                "longitude": longitude,
-                "latitude": latitude,
-            }
+            "timezone": timezone,
+            "days": days,
+            "longitude": longitude,
+            "latitude": latitude,
         },
         200,
     )
