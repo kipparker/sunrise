@@ -3,11 +3,10 @@ import json
 import datetime
 from dateutil.parser import parse
 from dateutil.rrule import rrule, DAILY
-import astral
 
 from astral import LocationInfo
 from astral import sun
-from timezonefinderL import TimezoneFinder
+from timezonefinder import TimezoneFinder
 
 from encoders import DateEncoder
 
@@ -68,7 +67,7 @@ def api(event: Dict, context: Dict):
         try:
             sunrise = sun.sunrise(city.observer, d, city.timezone)
         except ValueError as e:
-            if 'above' in e.args[0]:
+            if "above" in e.args[0]:
                 sunrise = d.replace(hour=0, minute=0, second=0, microsecond=0)
                 sunset = d.replace(
                     hour=23, minute=59, second=59, microsecond=10 ** 6 - 1
