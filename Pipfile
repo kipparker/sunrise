@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 astral = "*"
 python-dateutil = "*"
-timezonefinderl = "*"
+timezonefinder = "*"
 
 [dev-packages]
 pylint = "*"
